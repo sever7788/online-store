@@ -1,4 +1,6 @@
 import * as React from 'react';
+import PagerView from 'react-native-pager-view';
+
 import { TouchableOpacity, Image, StyleSheet, View, Text } from 'react-native';
 import starImage from '../../assets/star.png';
 import airImage from '../../assets/air.png';
@@ -7,8 +9,9 @@ import matriceImage from '../../assets/matrice.png';
 class Carousel extends React.PureComponent {
     render() {
         return (
-            <View style={styles.carousel}>
-                <View style={styles.carouselLine}>
+            <PagerView style={styles.carousel}  pageMargin={-150}
+                initialPage={0}>
+                <View style={styles.page} key="1">
                     <View style={styles.card}>
                         <Image source={airImage} style={styles.cardImage} />
                         <View style={styles.cardDescriptionBlock}>
@@ -22,6 +25,8 @@ class Carousel extends React.PureComponent {
                             </View>
                         </View>
                     </View>
+                </View>
+                <View style={styles.page} key="2">
                     <View style={styles.card}>
                         <Image source={mavicImage} style={styles.cardImage} />
                         <View style={styles.cardDescriptionBlock}>
@@ -36,7 +41,7 @@ class Carousel extends React.PureComponent {
                         </View>
                     </View>
                 </View>
-            </View>
+            </PagerView>
         );
     }
 }
@@ -98,24 +103,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#E7E7E7',
         marginLeft: 16,
+        
         borderRadius: 12,
     },
-
-    carouselLine: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        width: '100%',
-        height: '100%',
+    page:{
 
     },
     carousel: {
-        padding: 0,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         position: 'relative',
         width: '100%',
         height: '31%',
         top: '3%',
-
     },
 });
 

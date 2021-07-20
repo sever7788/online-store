@@ -3,16 +3,12 @@ import { TouchableOpacity, SafeAreaView, Image, StyleSheet, View, Text } from 'r
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import menuImage from '../../assets/menu.png';
-import quadroBannerImage from '../../assets/QuadroBanner.png';
 import houseImage from '../../assets/house.png';
 import loupeImage from '../../assets/loupe.png';
 import cartImage from '../../assets/cart.png';
 import heartImage from '../../assets/heart.png';
-import starImage from '../../assets/star.png';
-import airImage from '../../assets/air.png';
-import mavicImage from '../../assets/mavic.png';
-import matriceImage from '../../assets/matrice.png';
 import Carousel from '../Carousel/Carousel.js';
+import Banner from '../Banner/Banner';
 const HomeScreen = () => {
 
     let [fontsLoaded] = useFonts({
@@ -31,14 +27,7 @@ const HomeScreen = () => {
                     <Text style={styles.productName}>Quadrojoy</Text>
                     <Image source={menuImage} style={styles.menuButton} />
                 </View>
-                <View style={styles.banner}>
-                    <View style={styles.bannerTextBlock}>
-                        <Text style={styles.appointmentText}>Need for Speed</Text>
-                        <Text style={styles.bannerProductName}>UdoDron 3 Pro</Text>
-                        <Text style={styles.productPrice}>1984 $</Text>
-                    </View>
-                    <Image source={quadroBannerImage} style={styles.quadroBanner} />
-                </View>
+              <Banner/>
                 <View style={styles.blockButtons}>
                     <TouchableOpacity style={styles.filterButton}>
                         <Text style={styles.filterButtonText}>All</Text>
@@ -163,96 +152,6 @@ const styles = StyleSheet.create({
         top: '8%',
 
     },
-    productPrice: {
-        position: 'absolute',
-        width: 63,
-        height: 24,
-        left: 0,
-        top: 49,
-        /* 14 17 SemiBold */
-        fontFamily: 'Lato-Bold',
-        fontSize: 20,
-        lineHeight: 24,
-        display: 'flex',
-        alignItems: 'center',
-        color: '#FFFFFF',
-        /* Inside Auto Layout */
-        margin: 0,
-    },
-    bannerProductName: {
-        position: 'absolute',
-        width: 163,
-        height: 32,
-        left: 0,
-        top: 17,
-        /* 14 17 SemiBold */
-        fontFamily: 'Lato-Black',
-
-        fontSize: 24,
-        lineHeight: 32,
-        display: 'flex',
-        alignItems: 'center',
-        color: '#FFFFFF',
-        /* Inside Auto Layout */
-        margin: 0,
-    },
-    appointmentText: {
-        position: 'absolute',
-        width: 97,
-        height: 17,
-        left: 0,
-        top: 0,
-        /* 14 17 SemiBold */
-        fontFamily: 'Lato-Bold',
-
-        fontSize: 14,
-        lineHeight: 17,
-        /* identical to box height, or 121% */
-        /* White */
-        color: '#FFFFFF',
-        /* Inside Auto Layout */
-        margin: 0,
-    },
-
-    bannerTextBlock: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        padding: 0,
-
-        position: 'absolute',
-        width: 163,
-        height: 73,
-        left: 20,
-        top: 71,
-    },
-
-    quadroBanner: {
-        position: 'absolute',
-        width: '68%',
-        height: 164,
-        right: 5,
-        top: 0,
-    },
-    banner: {
-        position: 'relative',
-        width: '91%',
-        height: 164,
-        left: 'auto',
-        top: '4%',
-        /* Accent */
-        backgroundColor: '#317AE8',
-        /* 1 */
-        shadowColor: "rgba(0, 0, 0, 0.15);",
-        shadowOffset: {
-            width: 2,
-            height: 2,
-        },
-        shadowOpacity: 16,
-        shadowRadius: 16,
-        borderRadius: 20,
-    },
-
     container: {
         position: 'relative',
         flex: 1,
