@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { TouchableOpacity, SafeAreaView, Image, StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
@@ -9,7 +10,9 @@ import cartImage from '../../assets/cart.png';
 import heartImage from '../../assets/heart.png';
 import Carousel from '../Carousel/Carousel.js';
 import Banner from '../Banner/Banner';
-const HomeScreen = () => {
+import Crisps from '../Сrisps/Сrisps';
+import { setSelectedFilter } from '../../redux/main-reducer';
+const MainScreen = (props) => {
 
     let [fontsLoaded] = useFonts({
         'Lato-Black': require('../../assets/fonts/Lato-Black.ttf'),
@@ -27,24 +30,14 @@ const HomeScreen = () => {
                     <Text style={styles.productName}>Quadrojoy</Text>
                     <Image source={menuImage} style={styles.menuButton} />
                 </View>
-              <Banner/>
-                <View style={styles.blockButtons}>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text style={styles.filterButtonText}>All</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}
-                    ><Text style={styles.filterButtonText}>Ceap</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text style={styles.filterButtonText}>Best</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.filterButton}>
-                        <Text style={styles.filterButtonText}>Fast</Text>
-                    </TouchableOpacity>
-                </View>
+                <Banner />
+                <Crisps selectedFilter={props.selectedFilter} 
+                setFilter={props.setFilter} />
                 <Text style={styles.buttonDescriptionText}>All Quadrocopters</Text>
 
-                <Carousel/>
+                <Carousel products={props.products}
+                    productName={props.productName} 
+                    selectedFilter={props.selectedFilter} />
 
                 <View style={styles.nav}>
                     <Image source={houseImage} style={styles.navIcon} />
@@ -56,6 +49,23 @@ const HomeScreen = () => {
         );
     }
 }
+
+let mapStateToProps = (state) => {
+    return {
+        products: state.mainReducer.products,
+        productName: state.mainReducer.productName,
+        selectedFilter: state.mainReducer.selectedFilter,
+    }
+}
+let mapDispatchToProps = (dispatch) => {
+    return {
+        setFilter: (filter) => {
+            let action = setSelectedFilter(filter);
+            dispatch(action);
+        }
+    }
+}
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(MainScreen);
 
 const styles = StyleSheet.create({
     navIcon: {
@@ -80,7 +90,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 16,
         shadowRadius: 16,
-        elevation: 5,
+        elevation: 20,
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
     },
@@ -99,58 +109,6 @@ const styles = StyleSheet.create({
         /* identical to box height, or 120% */
         /* BlackMain */
         color: '#1F1F1F',
-    },
-    filterButtonText: {
-        position: 'absolute',
-        width: 46,
-        height: 22,
-        left: 16,
-        top: 12,
-
-        /* baseline 16 22 */
-
-        fontFamily: 'Lato-Regular',
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: 16,
-        lineHeight: 22,
-        /* identical to box height, or 137% */
-
-        display: 'flex',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
-    filterButton: {
-        /* Auto Layout */
-        display: 'flex',
-        position: 'relative',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-
-        paddingTop: 16,
-        width: 78,
-        height: 46,
-        left: 0,
-        top: 0,
-        /* LightGray */
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: '#E7E7E7',
-        borderRadius: 12,
-        flexGrow: 0,
-        marginLeft: 0,
-    },
-    blockButtons: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        padding: 0,
-        position: 'relative',
-        width: '91%',
-        height: 46,
-        top: '8%',
-
     },
     container: {
         position: 'relative',
@@ -192,7 +150,7 @@ const styles = StyleSheet.create({
         height: 28,
         left: 323,
 
-    }
+    },
 });
 
-export default HomeScreen;
+export default MainContainer;
