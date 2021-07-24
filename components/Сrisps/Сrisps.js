@@ -4,7 +4,7 @@ import Crisp from './Crisp';
 class Crisps extends React.PureComponent {
     
     render() {
-        console.log("render");
+        
         return (
             <View style={styles.blockButtons} >
                 <Crisp text = "All" setFilter={this.props.setFilter} selectedFilter ={this.props.selectedFilter}/>

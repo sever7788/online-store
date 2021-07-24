@@ -3,6 +3,7 @@ import mavicImage from '../assets/mavic.png';
 import matriceImage from '../assets/matrice.png';
 
 const SET_SELECTED_FILTER = 'SET_SELECTED_FILTER';
+const SET_SELECTED_PRODUCT_ID = 'SET_SELECTED_PRODUCT_ID';
 
 let initialState = {
     productName: "Quadrojoy",
@@ -33,6 +34,7 @@ let initialState = {
         }
     ],
     selectedFilter: "All",
+    selectedProductID: null,
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -42,12 +44,17 @@ const mainReducer = (state = initialState, action) => {
                 ...state,
                 selectedFilter: action.selectedFilter
             }
-
+            case SET_SELECTED_PRODUCT_ID:
+            return {
+                ...state,
+                selectedProductID: action.selectedProductID
+            }
         default:
             return state;
     }
 }
 
 export const setSelectedFilter = (selectedFilter) => ({ type: SET_SELECTED_FILTER, selectedFilter });
+export const setSelectedProductID = (selectedProductID) => ({ type: SET_SELECTED_PRODUCT_ID, selectedProductID });
 
 export default mainReducer;

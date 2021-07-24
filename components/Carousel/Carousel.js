@@ -29,7 +29,8 @@ class Carousel extends React.PureComponent {
                 initialPage={0} offscreenPageLimit={10} key={this.childKey}>
                 {applyFilter(this.props.products, this.props.selectedFilter).map(p => {
                     return <View style={styles.page} key={p.id}>
-                        <Card photo={p.photo} name={p.name} price={p.price} rating={p.rating} />
+                        <Card navigation={this.props.navigation} id={p.id}
+                        setID={this.props.setID} photo={p.photo} name={p.name} price={p.price} rating={p.rating} />
                     </View>
                 })}
 

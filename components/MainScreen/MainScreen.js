@@ -11,7 +11,8 @@ import heartImage from '../../assets/heart.png';
 import Carousel from '../Carousel/Carousel.js';
 import Banner from '../Banner/Banner';
 import Crisps from '../Сrisps/Сrisps';
-import { setSelectedFilter } from '../../redux/main-reducer';
+import { setSelectedFilter, setSelectedProductID } from '../../redux/main-reducer';
+import NavContainer from '../Nav/Nav';
 const MainScreen = (props) => {
 
     let [fontsLoaded] = useFonts({
@@ -31,20 +32,13 @@ const MainScreen = (props) => {
                     <Image source={menuImage} style={styles.menuButton} />
                 </View>
                 <Banner />
-                <Crisps selectedFilter={props.selectedFilter} 
-                setFilter={props.setFilter} />
+                <Crisps selectedFilter={props.selectedFilter}
+                    setFilter={props.setFilter} />
                 <Text style={styles.buttonDescriptionText}>All Quadrocopters</Text>
 
-                <Carousel products={props.products}
-                    productName={props.productName} 
-                    selectedFilter={props.selectedFilter} />
-
-                <View style={styles.nav}>
-                    <Image source={houseImage} style={styles.navIcon} />
-                    <Image source={heartImage} style={styles.navIcon} />
-                    <Image source={loupeImage} style={styles.navIcon} />
-                    <Image source={cartImage} style={styles.navIcon} />
-                </View>
+                <Carousel setID={props.setID} products={props.products} productName={props.productName}
+                    navigation={props.navigation} selectedFilter={props.selectedFilter} />
+                <NavContainer navigation={props.navigation}/>
             </SafeAreaView>
         );
     }
@@ -62,38 +56,16 @@ let mapDispatchToProps = (dispatch) => {
         setFilter: (filter) => {
             let action = setSelectedFilter(filter);
             dispatch(action);
+        },
+        setID: (id) => {
+            let action = setSelectedProductID(id);
+            dispatch(action);
         }
     }
 }
 const MainContainer = connect(mapStateToProps, mapDispatchToProps)(MainScreen);
 
 const styles = StyleSheet.create({
-    navIcon: {
-        position: 'relative',
-        width: 32,
-        height: 32,
-    },
-    nav: {
-        position: 'relative',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
-        height: '7%',
-        left: 0,
-
-        backgroundColor: '#FFFFFF',
-        shadowColor: "rgba(0, 0, 0, 0.15);",
-        shadowOffset: {
-            width: 2,
-            height: 2,
-        },
-        shadowOpacity: 16,
-        shadowRadius: 16,
-        elevation: 20,
-        borderTopLeftRadius: 12,
-        borderTopRightRadius: 12,
-    },
 
     buttonDescriptionText: {
         position: 'relative',

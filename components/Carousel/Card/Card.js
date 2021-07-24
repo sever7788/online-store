@@ -5,19 +5,19 @@ import starImage from '../../../assets/star.png';
 const Card = (props) => {
 
     return (
-                    <View style={styles.card}>
+                    <TouchableOpacity style={styles.card} onPress={() => {props.setID(props.id); props.navigation.navigate('Order'); }}>
                         <Image source={props.photo} style={styles.cardImage} />
                         <View style={styles.cardDescriptionBlock}>
                             <Text style={styles.cardProductName}>{props.name}</Text>
                         </View>
                         <View style={styles.containerCardPrice}>
-                            <Text style={styles.cardProductPrice}>{props.price}</Text>
+                            <Text style={styles.cardProductPrice}>{props.price} $</Text>
                             <View style={styles.ratingContainer}>
                                 <Image source={starImage} style={styles.star} />
                                 <Text style={styles.rating}>{props.rating}</Text>
                             </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
     );
 }
 
