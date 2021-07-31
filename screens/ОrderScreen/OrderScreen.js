@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, SafeAreaView, Image, StyleSheet, View, Text, TextInput } from 'react-native';
-import backImage from '../../assets/back.png';
-import Form from '../Form/Form';
-import Notification from '../Notification/Notification';
+import backImage from './../../assets/images/back.png';
+import Form from './components/Form/Form';
+import Notification from './components/Notification/Notification';
 
 const findProduct = (products, id) => {
     let product;
@@ -12,14 +12,16 @@ const findProduct = (products, id) => {
 }
 
 const OrderScreen = (props) => {
-    const [showResult, setResult] = React.useState(false)
-    const clickButtonOrder = () => setResult(true);
-    const clickButtonOk = () => setResult(false);
+    const  [ isModalVisible ,  setModalVisible ]  =  React.useState ( false ) ;
+    const  toggleModal  =  ( )  =>  { 
+        setModalVisible ( ! isModalVisible ) ; 
+      } ;
+      
     let product = findProduct(props.products, props.productId);
     return (
         <SafeAreaView style={styles.container}>
-            { showResult ? <Notification clickButtonOk={clickButtonOk}/> : null }
-            <TouchableOpacity style={styles.header} onPress={() => { props.navigation.navigate('MainContainer'); }}>
+            <Notification isModalVisible ={isModalVisible} toggleModal ={toggleModal}/>
+            <TouchableOpacity style={styles.header} onPress={() => { props.navigation.goBack(null) }}>
                 <Image source={backImage} style={styles.backButton} />
             </TouchableOpacity>
             <View style={styles.containerPhoto} >
@@ -31,7 +33,7 @@ const OrderScreen = (props) => {
                 <Text style={styles.price}>{product.price} $</Text>
                 <Text style={styles.detailedDescriptionText}>The Mavic 2 offers iconic Hasselblad image quality on Pro and a high-performance zoom lens on Zoom.</Text>
             </View>
-            <Form clickButtonOrder={clickButtonOrder}/>
+            <Form toggleModal={toggleModal} />
         </SafeAreaView>
     );
 }
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         zIndex: 1,
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent: "center"
     },
     notText: {
         position: 'relative',
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     },
 
     photo: {
-        position: "absolute",
+        position: "relative",
         width: "91%",
         height: "91%",
         left: "5%"
@@ -159,8 +161,8 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: 100,
         height: 52,
-        top: '6%',
-alignSelf:"flex-start"
+        top: 37,
+        alignSelf: "flex-start"
     },
 
     productName: {

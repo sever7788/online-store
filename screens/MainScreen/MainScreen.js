@@ -3,16 +3,13 @@ import { connect } from 'react-redux';
 import { TouchableOpacity, SafeAreaView, Image, StyleSheet, View, Text } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import menuImage from '../../assets/menu.png';
-import houseImage from '../../assets/house.png';
-import loupeImage from '../../assets/loupe.png';
-import cartImage from '../../assets/cart.png';
-import heartImage from '../../assets/heart.png';
-import Carousel from '../Carousel/Carousel.js';
-import Banner from '../Banner/Banner';
-import Crisps from '../Сrisps/Сrisps';
+import menuImage from './../../assets/images/menu.png';
+
+import Carousel from './components/Carousel/Carousel.js';
+import Banner from './components/Banner/Banner';
+import Crisps from './components/Сrisps/Сrisps';
 import { setSelectedFilter, setSelectedProductID } from '../../redux/main-reducer';
-import NavContainer from '../Nav/Nav';
+
 const MainScreen = (props) => {
 
     let [fontsLoaded] = useFonts({
@@ -20,6 +17,16 @@ const MainScreen = (props) => {
         'Lato-Regular': require('../../assets/fonts/Lato-Regular.ttf'),
         'Lato-Bold': require('../../assets/fonts/Lato-Bold.ttf'),
     });
+
+    const [page, setPage] = React.useState(0);
+    const [lastPositions, setLastPositions] = React.useState([0, 0, 0, 0]);
+    let lastPosition = 0;
+    switch (props.selectedFilter) {
+        case "All": lastPosition = lastPositions[0]; break;
+        case "Cheap": lastPosition = lastPositions[1]; break;
+        case "Best": lastPosition = lastPositions[2]; break;
+        case "Fast": lastPosition = lastPositions[3]; break;
+    }
 
     if (!fontsLoaded) {
         return <AppLoading />;
@@ -33,12 +40,19 @@ const MainScreen = (props) => {
                 </View>
                 <Banner />
                 <Crisps selectedFilter={props.selectedFilter}
-                    setFilter={props.setFilter} />
+                    setFilter={props.setFilter} 
+                    setLastPositions={setLastPositions}
+                    page={page}
+                    lastPositions={lastPositions}/>
                 <Text style={styles.buttonDescriptionText}>All Quadrocopters</Text>
 
-                <Carousel setID={props.setID} products={props.products} productName={props.productName}
-                    navigation={props.navigation} selectedFilter={props.selectedFilter} />
-                <NavContainer navigation={props.navigation}/>
+                <Carousel setID={props.setID}
+                    setPage={setPage}
+                    lastPosition={lastPosition}
+                    products={props.products}
+                    productName={props.productName}
+                    navigation={props.navigation}
+                    selectedFilter={props.selectedFilter} />
             </SafeAreaView>
         );
     }
@@ -87,7 +101,8 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F8F8F8',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingBottom: 20,
     },
 
     header: {

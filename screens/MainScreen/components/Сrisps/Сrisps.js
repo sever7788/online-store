@@ -2,15 +2,23 @@ import * as React from 'react';
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
 import Crisp from './Crisp';
 class Crisps extends React.PureComponent {
-    
+
     render() {
-        
+
         return (
             <View style={styles.blockButtons} >
-                <Crisp text = "All" setFilter={this.props.setFilter} selectedFilter ={this.props.selectedFilter}/>
-                <Crisp text ="Cheap"setFilter={this.props.setFilter} selectedFilter ={this.props.selectedFilter}/>
-                <Crisp text = "Best" setFilter={this.props.setFilter} selectedFilter ={this.props.selectedFilter}/>
-                <Crisp text = "Fast" setFilter={this.props.setFilter} selectedFilter ={this.props.selectedFilter}/>
+                <Crisp text="All" setFilter={this.props.setFilter}
+                    setLastPositions={this.props.setLastPositions} selectedFilter={this.props.selectedFilter}
+                    lastPositions={this.props.lastPositions} page={this.props.page} />
+                <Crisp text="Cheap" setFilter={this.props.setFilter}
+                    setLastPositions={this.props.setLastPositions} selectedFilter={this.props.selectedFilter}
+                    lastPositions={this.props.lastPositions} page={this.props.page} />
+                <Crisp text="Best" setFilter={this.props.setFilter}
+                    setLastPositions={this.props.setLastPositions} selectedFilter={this.props.selectedFilter}
+                    lastPositions={this.props.lastPositions} page={this.props.page} />
+                <Crisp text="Fast" setFilter={this.props.setFilter}
+                    setLastPositions={this.props.setLastPositions} selectedFilter={this.props.selectedFilter}
+                    lastPositions={this.props.lastPositions} page={this.props.page} />
             </View>
         );
     }
@@ -30,13 +38,13 @@ const styles = StyleSheet.create({
         height: 46,
         top: '8%',
     },
-   filterButton : {
+    filterButton: {
         /* Auto Layout */
         display: 'flex',
         position: 'relative',
         flexDirection: 'row',
         alignItems: 'flex-start',
-    
+
         paddingTop: 16,
         width: 78,
         height: 46,
@@ -78,7 +86,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 22,
         /* identical to box height, or 137% */
-        color:"#000",
+        color: "#000",
         display: 'flex',
         alignItems: 'center',
         textAlign: 'center',

@@ -1,12 +1,9 @@
 import * as React from 'react';
 import {SafeAreaView, StyleSheet, Text } from 'react-native';
-import Nav from './../Nav/Nav';
-
-const FindScreen = (props) => {
+const ChosenScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.textPage}> FindScreen</Text>
-            <Nav navigation={props.navigation}/>
+            <Text style={styles.textPage}>ChosenScreen</Text>
         </SafeAreaView>
     );
 
@@ -22,7 +19,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-    textPage: {
+     textPage: {
         position: 'relative',
         /* 24 32 ExtraBold */
         fontFamily: 'Lato-Black',
@@ -40,4 +37,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default  FindScreen;
+export default ChosenScreen;

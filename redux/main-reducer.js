@@ -1,6 +1,6 @@
-import airImage from '../assets/air.png';
-import mavicImage from '../assets/mavic.png';
-import matriceImage from '../assets/matrice.png';
+import airImage from '../assets/images/air.png';
+import mavicImage from '../assets/images/mavic.png';
+import matriceImage from '../assets/images/matrice.png';
 
 const SET_SELECTED_FILTER = 'SET_SELECTED_FILTER';
 const SET_SELECTED_PRODUCT_ID = 'SET_SELECTED_PRODUCT_ID';

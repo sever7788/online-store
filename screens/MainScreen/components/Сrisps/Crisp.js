@@ -1,10 +1,24 @@
 import * as React from 'react';
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
+
+const switchingFilter = (setLastPositions, setFilter, Filter, lastPositions, page, selectedFilter) => {
+    console.log(lastPositions);
+    let lastPositions2 = lastPositions;
+    switch (selectedFilter) {
+        case "All": lastPositions2[0] = page; setLastPositions(lastPositions2); break;
+        case "Cheap": lastPositions2[1] = page; setLastPositions(lastPositions2); break;
+        case "Best": lastPositions2[2] = page; setLastPositions(lastPositions2); break;
+        case "Fast": lastPositions2[3] = page; setLastPositions(lastPositions2); break;
+    }
+    setFilter(Filter)
+}
+
 const Crisp = (props) => {
 
     return (
         <TouchableOpacity style={props.selectedFilter == props.text ?
-            [styles.filterButton, { backgroundColor: "#317AE8" }] : styles.filterButton} onPress={() => props.setFilter(props.text)}>
+            [styles.filterButton, { backgroundColor: "#317AE8" }] : styles.filterButton} onPress={() =>
+                switchingFilter(props.setLastPositions, props.setFilter, props.text, props.lastPositions, props.page, props.selectedFilter)}>
             <Text style={props.selectedFilter == props.text ?
                 [styles.filterButtonText, { color: "#fff" }] : styles.filterButtonText}>{props.text}</Text>
         </TouchableOpacity>
@@ -19,9 +33,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         position: 'relative',
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        alignItems: 'center',
+        justifyContent: 'center',
 
-        paddingTop: 16,
         width: 78,
         height: 46,
         left: 0,
@@ -39,8 +53,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: 46,
         height: 22,
-        left: 16,
-        top: 12,
 
         /* baseline 16 22 */
 

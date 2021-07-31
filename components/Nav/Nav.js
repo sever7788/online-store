@@ -1,28 +1,66 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { TouchableOpacity, SafeAreaView, Image, StyleSheet, View, Text } from 'react-native';
-import houseImage from '../../assets/house.png';
-import loupeImage from '../../assets/loupe.png';
-import cartImage from '../../assets/cart.png';
-import heartImage from '../../assets/heart.png';
-
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import houseImage from '../../assets/images/house.png';
+import loupeImage from '../../assets/images/loupe.png';
+import cartImage from '../../assets/images/cart.png';
+import heartImage from '../../assets/images/heart.png';
+import MainContainer from '../../screens/MainScreen/MainScreen'
+import ChosenScreen from '../../screens/ChosenScreen/ChosenScreen';
+import FindScreen from '../../screens/FindScreen/FindScreen';
+import BuyScreen from '../../screens/BuyScreen/BuyScreen';
 import { setSelectedFilter, setSelectedProductID } from '../../redux/main-reducer';
+import OrderContainer from '../../screens/ОrderScreen/OrderScreen';
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const getTabBarIcon = (source, focused) => {
+    return (
+        <Image source={source}
+            resizeMode='contain'
+            style={{
+                width: 32,
+                height: 32,
+                tintColor: focused ? '#317AE8' : '#939399'
+            }} />
+    );
+}
+
+function HomeTabs() {
+    return (
+        <Tab.Navigator initialRouteName="MainScreen"
+            tabBarOptions={{
+                showLabel: false,
+                style: { ...styles.nav }
+            }}>
+            <Tab.Screen name="MainScreen" component={MainContainer}
+                options={{
+                    tabBarIcon: ({ focused }) => getTabBarIcon(houseImage, focused),
+                }} />
+            <Tab.Screen name="ChosenScreen" component={ChosenScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => getTabBarIcon(heartImage, focused),
+                }} />
+            <Tab.Screen name="FindScreen" component={FindScreen}
+                options={{
+                    tabBarIcon: ({ focused }) => getTabBarIcon(loupeImage, focused),
+                }} />
+            <Tab.Screen name="BuyScreen" component={BuyScreen} options={{
+                tabBarIcon: ({ focused }) => getTabBarIcon(cartImage, focused),
+            }} />
+        </Tab.Navigator>
+    );
+}
+
 const Nav = (props) => {
     return (
-        <View style={styles.nav}>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('MainContainer'); }}>
-                <Image source={houseImage} style={styles.navIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('ChosenScreen'); }}>
-                <Image source={heartImage} style={styles.navIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('FindScreen'); }}>
-                <Image source={loupeImage} style={styles.navIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { props.navigation.navigate('BuyScreen'); }}>
-                <Image source={cartImage} style={styles.navIcon} />
-            </TouchableOpacity>
-        </View>
+        <Stack.Navigator initialRouteName="MainScreen" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="MainScreen" component={HomeTabs} />
+            <Stack.Screen name="OrderScreen" component={OrderContainer} />
+        </Stack.Navigator>
     );
 }
 
@@ -55,13 +93,6 @@ const styles = StyleSheet.create({
     },
     nav: {
         position: 'relative',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        width: '100%',
-        height: '7%',
-        left: 0,
-        bottom:0,
         backgroundColor: '#FFFFFF',
         shadowColor: "rgba(0, 0, 0, 0.15);",
         shadowOffset: {
@@ -71,6 +102,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 16,
         shadowRadius: 16,
         elevation: 20,
+        borderTopWidth: 0,
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
     },

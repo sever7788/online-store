@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import NavContainer from './../Nav/Nav';
+import {SafeAreaView, StyleSheet, Text } from 'react-native';
 
-
-const BuyScreen = (props) => {
+const FindScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
-                <Text style={styles.textPage}>BuyScreen</Text>
-            <NavContainer navigation={props.navigation} />
+            <Text style={styles.textPage}> FindScreen</Text>
         </SafeAreaView>
     );
 
@@ -20,8 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F8F8F8',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingBottom:'0%',
+        justifyContent: 'space-between'
     },
 
     textPage: {
@@ -39,6 +35,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 
+
 });
 
-export default BuyScreen;
+export default  FindScreen;

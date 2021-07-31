@@ -18,19 +18,22 @@ const applyFilter = (products, filter) => {
 }
 
 class Carousel extends React.PureComponent {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.childKey = 4;
     }
     render() {
-        this.childKey=Math.random();
+        this.childKey = Math.random();
         return (
             <PagerView style={styles.carousel} pageMargin={-150}
-                initialPage={0} offscreenPageLimit={10} key={this.childKey}>
+                initialPage={this.props.lastPosition} offscreenPageLimit={10}
+                overdrag={true}
+                onPageSelected={(e) => { this.props.setPage(e.nativeEvent.position); }}
+                key={this.childKey}>
                 {applyFilter(this.props.products, this.props.selectedFilter).map(p => {
                     return <View style={styles.page} key={p.id}>
                         <Card navigation={this.props.navigation} id={p.id}
-                        setID={this.props.setID} photo={p.photo} name={p.name} price={p.price} rating={p.rating} />
+                            setID={this.props.setID} photo={p.photo} name={p.name} price={p.price} rating={p.rating} />
                     </View>
                 })}
 
@@ -46,6 +49,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         position: 'relative',
         width: '100%',
+        minHeight: 225,
         height: '31%',
         top: '3%',
     },
